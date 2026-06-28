@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neumorphic Power Buttons</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        font-family: sans-serif;
+      }
+
+      /* Split screen layout */
+      .container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.4s ease;
+      }
+
+      /* ==========================================
+         LIGHT THEME
+         ========================================== */
+      .light-theme {
+        background-color: #e0e0e0;
+      }
+
+      /* Base Outer Ring */
+      .light-theme .outer-ring {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #e0e0e0;
+        transition: box-shadow 0.4s ease;
+        /* Default Off State: Recessed In */
+        box-shadow:
+          inset 6px 6px 14px #bebebe,
+          inset -6px -6px 14px #ffffff;
+      }
+
+      /* Outer Ring changes to Outset when main button is turned ON */
+      .light-theme .outer-ring.active {
+        box-shadow:
+          6px 6px 14px #bebebe,
+          -6px -6px 14px #ffffff;
+      }
+
+      /* Base Power Button */
+      .light-theme .power-btn {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: box-shadow 0.4s ease;
+        /* Default Off State: Extruded Out */
+        box-shadow:
+          12px 12px 24px #bebebe,
+          -12px -12px 24px #ffffff,
+          inset 2px 2px 5px rgba(255, 255, 255, 0.7),
+          inset -2px -2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Main Button changes to Inset when turned ON */
+      .light-theme .power-btn.active {
+        box-shadow:
+          inset 8px 8px 16px #bebebe,
+          inset -8px -8px 16px #ffffff;
+      }
+
+      /* Inner Crater (::before) */
+      .light-theme .power-btn::before {
+        content: "";
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: #e0e0e0;
+        transition: box-shadow 0.4s ease;
+        /* Default Off State: Recessed In */
+        box-shadow:
+          inset 3px 3px 7px #bebebe,
+          inset -3px -3px 7px #ffffff;
+      }
+
+      /* Inner Crater changes to Extruded Out when turned ON */
+      .light-theme .power-btn.active::before {
+        box-shadow:
+          4px 4px 8px #bebebe,
+          -4px -4px 8px #ffffff;
+      }
+
+      /* Light Theme Icon Styling */
+      .light-theme .power-icon {
+        position: relative;
+        font-size: 2.2rem;
+        color: #a0a0a0;
+        z-index: 1;
+        transition: color 0.4s ease, text-shadow 0.4s ease;
+      }
+
+      .light-theme .power-btn.active .power-icon {
+        color: #2563eb;
+        text-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+      }
+
+
+      /* ==========================================
+         DARK THEME
+         ========================================== */
+      .dark-theme {
+        background-color: #161719;
+      }
+
+      /* Base Outer Ring */
+      .dark-theme .outer-ring {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #161719;
+        transition: box-shadow 0.4s ease;
+        /* Default Off State: Recessed In */
+        box-shadow:
+          inset 8px 8px 16px #0d0e10,
+          inset -8px -8px 16px #202226;
+      }
+
+      /* Outer Ring changes to Outset when main button is turned ON */
+      .dark-theme .outer-ring.active {
+        box-shadow:
+          8px 8px 20px #0d0e10,
+          -8px -8px 20px #202226;
+      }
+
+      /* Base Power Button */
+      .dark-theme .power-btn {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: #1c1d21;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: box-shadow 0.4s ease;
+        /* Default Off State: Extruded Out */
+        box-shadow:
+          14px 14px 28px #0b0c0d,
+          -10px -10px 24px #282a30,
+          inset 1px 1px 1px rgba(255, 255, 255, 0.05);
+      }
+
+      /* Main Button changes to Inset when turned ON */
+      .dark-theme .power-btn.active {
+        background: #17181b;
+        box-shadow:
+          inset 10px 10px 20px #0b0c0d,
+          inset -10px -10px 20px #23252a;
+      }
+
+      /* Inner Crater (::before) */
+      .dark-theme .power-btn::before {
+        content: "";
+        position: absolute;
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        background: #141517;
+        transition: box-shadow 0.4s ease, background-color 0.4s ease;
+        /* Default Off State: Recessed In */
+        box-shadow:
+          inset 5px 5px 10px #0b0c0d,
+          inset -5px -5px 10px #202226;
+      }
+
+      /* Inner Crater changes to Extruded Out when turned ON */
+      .dark-theme .power-btn.active::before {
+        background: #1c1d21;
+        box-shadow:
+          5px 5px 10px #0b0c0d,
+          -5px -5px 10px #282a30;
+      }
+
+      /* Dark Theme Radial Glow Overlay Function */
+      .dark-theme .power-btn::after {
+        content: "";
+        position: absolute;
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        background: radial-gradient(
+          circle,
+          rgba(37, 99, 235, 0.4) 0%,
+          rgba(37, 99, 235, 0.18) 45%,
+          rgba(37, 99, 235, 0.05) 70%,
+          transparent 100%
+        );
+        border: 1px solid rgba(59, 130, 246, 0.25);
+        box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
+        z-index: 1;
+      }
+
+      /* Display glow when Active */
+      .dark-theme .power-btn.active::after {
+        opacity: 1;
+      }
+
+      /* Dark Theme Icon Styling */
+      .dark-theme .power-icon {
+        position: relative;
+        font-size: 2.2rem;
+        color: #4a4d52;
+        z-index: 2;
+        transition: color 0.4s ease, text-shadow 0.4s ease;
+      }
+
+      .dark-theme .power-btn.active .power-icon {
+        color: #4facfe;
+        text-shadow:
+          0 0 10px rgba(79, 172, 254, 0.8),
+          0 0 25px rgba(79, 172, 254, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container light-theme">
+      <div class="outer-ring">
+        <button class="power-btn">
+          <span class="power-icon">⏻</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="container dark-theme">
+      <div class="outer-ring">
+        <button class="power-btn">
+          <span class="power-icon">⏻</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Selecting both functional buttons
+      document.querySelectorAll('.power-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          // Find the parent outer-ring element for coordinated contrast updates
+          const outerRing = button.parentElement;
+          
+          // Simultaneously toggle active states
+          button.classList.toggle('active');
+          outerRing.classList.toggle('active');
+        });
+      });
+    </script>
+  </body>
+</html>
